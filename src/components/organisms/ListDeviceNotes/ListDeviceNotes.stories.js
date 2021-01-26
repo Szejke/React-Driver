@@ -8,20 +8,5 @@ storiesOf('organisms/ListDeviceNotes', module)
   .addDecorator(withKnobs)
   .addDecorator(StoryRouter())
   .add('ListDeviceNotes', () => {
-    const devices = [
-      {
-        _id: '0',
-        name: 'asd',
-        description: 'asd',
-        disabled: true,
-      },
-      {
-        _id: '2',
-        name: 'asd',
-        description: 'sdf',
-        disabled: false,
-      },
-    ];
-
-    return <ListDeviceNotes devices={devices} />;
+    return <ListDeviceNotes />;
   });

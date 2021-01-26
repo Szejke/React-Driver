@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 import DeviceNote from 'components/molecules/DeviceNote/DeviceNote';
+import { getDevicesAction } from 'redux/actions/devices';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -10,36 +12,49 @@ const StyledWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ListPersonNote = ({ devices }) => {
+const ListDeviceNotes = ({ devices, getDevices }) => {
+  const { loading, error, length } = devices;
+  useEffect(() => {
+    getDevices();
+  }, []);
+
   return (
     <StyledWrapper>
-      {devices.map(({ _id, name, description, disabled }) => (
-        <DeviceNote key={_id} name={name} description={description} disabled={disabled} />
-      ))}
+      {loading && <p>Loading...</p>}
+      {length === 0 && !loading && <p>No devices available!</p>}
+      {error && !loading && <p>{error}</p>}
+
+      {devices.length > 0 &&
+        devices.map(({ _id, name, description, disabled }) => (
+          <DeviceNote key={_id} name={name} description={description} disabled={disabled} />
+        ))}
     </StyledWrapper>
   );
 };
 
-ListPersonNote.propTypes = {
+const mapStateToProps = (state) => {
+  const { devices } = state.devices;
+  return { devices };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getDevices: () => dispatch(getDevicesAction()),
+});
+
+ListDeviceNotes.propTypes = {
   devices: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      disabled: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      disabled: PropTypes.bool.isRequired,
     }),
   ),
+  getDevices: PropTypes.func.isRequired,
 };
 
-ListPersonNote.defaultProps = {
-  devices: [
-    {
-      _id: '',
-      name: '',
-      description: '',
-      disabled: false,
-    },
-  ],
+ListDeviceNotes.defaultProps = {
+  devices: [],
 };
 
-export default ListPersonNote;
+export default connect(mapStateToProps, mapDispatchToProps)(ListDeviceNotes);
