@@ -25,6 +25,7 @@ export default function users(state = initialState, action) {
         loading: false,
         error: action.message,
       };
+
     default:
       return state;
   }
