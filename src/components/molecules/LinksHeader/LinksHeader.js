@@ -8,7 +8,6 @@ const StyledWrapper = styled.div`
 const LinksHeader = () => (
   <StyledWrapper>
       Night LIght
-
   </StyledWrapper>
 );
 
