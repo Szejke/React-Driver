@@ -29,7 +29,11 @@ const DeviceNote = ({ name, description, disabled }) => {
       <StyledParagraphs>
         <StyledH1>{name}</StyledH1>
         <p>{description}</p>
-        {disabled ? <BrightnessAltHighFill size={48} /> : <BrightnessAltLow size={48} />}
+        {disabled ? (
+          <BrightnessAltHighFill data-testid="iconTrue" size={48} />
+        ) : (
+          <BrightnessAltLow data-testid="iconFalse" size={48} />
+        )}
       </StyledParagraphs>
     </StyledWrapper>
   );
@@ -38,7 +42,7 @@ const DeviceNote = ({ name, description, disabled }) => {
 DeviceNote.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  disabled: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default DeviceNote;

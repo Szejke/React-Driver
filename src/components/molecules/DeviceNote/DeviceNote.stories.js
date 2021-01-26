@@ -19,7 +19,5 @@ storiesOf('molecules/DeviceNote', module)
     const descriptionValue = text(labelDescription, defaultDescriptionValue, groupId);
     const disabledValue = boolean(labelDisabled, defaultDisabledValue, groupId);
 
-    return (
-      <DeviceNote id={1} name={nameValue} description={descriptionValue} disabled={disabledValue} />
-    );
+    return <DeviceNote name={nameValue} description={descriptionValue} disabled={disabledValue} />;
   });
