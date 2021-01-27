@@ -10,6 +10,7 @@
   },
   "ignorePatterns": ["reportWebVitals.js", "index.js", "jsconfig.json"],
   "rules": {
+    "no-underscore-dangle": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,

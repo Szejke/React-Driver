@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import ListDeviceNotes from 'components/organisms/ListDeviceNotes/ListDeviceNotes';
 import Fab from 'components/atoms/Buttons/Fab';
-import NewDeviceNote from 'components/organisms/NewDeviceNote/NewDeviceNote';
+import NewDeviceNote from 'components/organisms/NewDeviceNote/BarDeviceNote';
 
 const StyledWrapper = styled.div`
   margin-top: 20px;

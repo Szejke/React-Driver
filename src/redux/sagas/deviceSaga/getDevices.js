@@ -1,16 +1,5 @@
-import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
-
-const getUrl = '/device';
-
-function getDevice() {
-  return axios
-    .get(getUrl)
-    .then((response) => response.data)
-    .catch((error) => {
-      throw error;
-    });
-}
+import { getDevice } from 'services/devices';
 
 function* fetchDevices() {
   try {
@@ -21,8 +10,8 @@ function* fetchDevices() {
   }
 }
 
-function* deviceSaga() {
+function* getDeviceSaga() {
   yield takeEvery('GET_DEVICES_REQUESTED', fetchDevices);
 }
 
-export default deviceSaga;
+export default getDeviceSaga;

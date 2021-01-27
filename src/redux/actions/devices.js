@@ -6,9 +6,10 @@ export function getDevicesAction() {
   };
 }
 
-export function removeDevicesAction() {
+export function removeDevicesAction(id) {
+  console.log('czesc');
   return {
     type: type.DELETE_DEVICES_REQUESTED,
+    id,
   };
 }
-
