@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import ListDeviceNotes from 'components/organisms/ListDeviceNotes/ListDeviceNotes';
 import Fab from 'components/atoms/Buttons/Fab';
-import NewDeviceNote from 'components/organisms/NewDeviceNote/BarDeviceNote';
+import BarDeviceNote from 'components/organisms/BarDeviceNote/BarDeviceNote';
 
 const StyledWrapper = styled.div`
   margin-top: 20px;
@@ -54,7 +54,7 @@ const Home = () => {
         <Fab onClick={handleNewDeviceBarToggle}>{deviceBarVisible ? '-' : '+'}</Fab>
       </StyledButton>
       <StyledNewDeviceNote isVisible={deviceBarVisible}>
-        <NewDeviceNote handleClose={handleNewDeviceBarToggle} deviceId={stateEdit} />
+        <BarDeviceNote handleClose={handleNewDeviceBarToggle} deviceId={stateEdit} />
       </StyledNewDeviceNote>
     </StyledWrapper>
   );

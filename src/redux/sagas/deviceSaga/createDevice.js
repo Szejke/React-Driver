@@ -1,17 +1,20 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { createDeviceFromApi } from 'services/devices';
 
-function* createDevices(action) {
+function* createDevice(action) {
   try {
+    console.log('serwer', action.payload);
+    console.log('serwer', action);
     const newDevice = yield call(createDeviceFromApi, action.payload);
-    yield put({ type: 'CREATE_DEVICES_SUCCESS', payload: newDevice });
+    console.log('newDevice', newDevice);
+    yield put({ type: 'CREATE_DEVICE_SUCCESS', payload: newDevice });
   } catch (e) {
-    yield put({ type: 'CREATE_DEVICES_FAILED', message: e.message });
+    yield put({ type: 'CREATE_DEVICE_FAILED', message: e.message });
   }
 }
 
-function* deleteDeviceSaga() {
-  yield takeLatest('CREATE_DEVICES_REQUESTED', createDevices);
+function* createDeviceSaga() {
+  yield takeLatest('CREATE_DEVICE_REQUESTED', createDevice);
 }
 
-export default deleteDeviceSaga;
+export default createDeviceSaga;
