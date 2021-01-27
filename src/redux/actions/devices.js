@@ -11,3 +11,4 @@ export function removeDevicesAction() {
     type: type.DELETE_DEVICES_REQUESTED,
   };
 }
+

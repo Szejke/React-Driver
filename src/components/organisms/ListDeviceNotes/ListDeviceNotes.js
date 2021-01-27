@@ -12,7 +12,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ListDeviceNotes = ({ devices, getDevices, deviceBarToggle }) => {
+const ListDeviceNotes = ({ devices, getDevices, editState }) => {
   const { loading, error, length } = devices;
   useEffect(() => {
     getDevices();
@@ -27,7 +27,7 @@ const ListDeviceNotes = ({ devices, getDevices, deviceBarToggle }) => {
       {devices.length > 0 &&
         devices.map(({ _id, name, description, disabled }) => (
           <DeviceNote
-            deviceBarToggle={deviceBarToggle}
+            editState={editState}
             key={_id}
             id={_id}
             name={name}
@@ -58,7 +58,7 @@ ListDeviceNotes.propTypes = {
     }),
   ),
   getDevices: PropTypes.func.isRequired,
-  deviceBarToggle: PropTypes.func.isRequired,
+  editState: PropTypes.func.isRequired,
 };
 
 ListDeviceNotes.defaultProps = {

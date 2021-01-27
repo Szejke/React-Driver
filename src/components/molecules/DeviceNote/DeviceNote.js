@@ -32,7 +32,7 @@ const StyledEditIcon = styled.div`
   margin-left: auto;
 `;
 
-const DeviceNote = ({ id, name, description, disabled, removePerson, deviceBarToggle }) => {
+const DeviceNote = ({ id, name, description, disabled, removePerson, editState }) => {
   return (
     <StyledWrapper>
       <StyledParagraphs>
@@ -45,7 +45,7 @@ const DeviceNote = ({ id, name, description, disabled, removePerson, deviceBarTo
         )}
       </StyledParagraphs>
       <StyledEditIcon>
-        <IconButton onClick={deviceBarToggle}>
+        <IconButton onClick={() => editState({ id })}>
           <PencilFill size={48} />
         </IconButton>
         <IconButton onClick={() => removePerson({ id })}>
@@ -62,7 +62,7 @@ DeviceNote.propTypes = {
   description: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   removePerson: PropTypes.func.isRequired,
-  deviceBarToggle: PropTypes.func.isRequired,
+  editState: PropTypes.func.isRequired,
 };
 
 export default DeviceNote;

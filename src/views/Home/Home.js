@@ -35,16 +35,26 @@ const StyledNewDeviceNote = styled.div`
 
 const Home = () => {
   const [deviceBarVisible, setDeviceBarVisible] = useState(false);
-  const handleNewDeviceBarToggle = () => setDeviceBarVisible(!deviceBarVisible);
+  const [stateEdit, setStateEdit] = useState('');
+
+  const handleNewDeviceBarToggle = () => {
+    setDeviceBarVisible(!deviceBarVisible);
+    setStateEdit('');
+  };
+
+  const handleEditDeviceBarToggle = (deviceId) => {
+    setDeviceBarVisible(!deviceBarVisible);
+    setStateEdit(deviceId);
+  };
 
   return (
     <StyledWrapper>
-      <ListDeviceNotes deviceBarToggle={handleNewDeviceBarToggle} />
+      <ListDeviceNotes editState={handleEditDeviceBarToggle} />
       <StyledButton>
         <Fab onClick={handleNewDeviceBarToggle}>{deviceBarVisible ? '-' : '+'}</Fab>
       </StyledButton>
       <StyledNewDeviceNote isVisible={deviceBarVisible}>
-        <NewDeviceNote handleClose={handleNewDeviceBarToggle} />
+        <NewDeviceNote handleClose={handleNewDeviceBarToggle} deviceId={stateEdit} />
       </StyledNewDeviceNote>
     </StyledWrapper>
   );

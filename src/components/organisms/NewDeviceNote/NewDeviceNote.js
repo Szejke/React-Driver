@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import Button from 'components/atoms/Buttons/Button';
+import { editStae } from 'components/organisms/SetDeviceNote/SetDeviceNote';
 
 import styled from 'styled-components/macro';
 
@@ -21,10 +23,11 @@ const StyledCheck = styled(Form.Check)`
   }
 `;
 
-const NewPersonBar = () => {
+const NewDeviceNote = ({ deviceId }) => {
+  const text = editStae({ deviceId });
   return (
     <StyledWrapper>
-      <Styledh1> Create New Device </Styledh1>
+      <Styledh1> {text.title} </Styledh1>
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Device Name</Form.Label>
@@ -49,14 +52,12 @@ const NewPersonBar = () => {
   );
 };
 
-// NewPersonBar.propTypes = {
-//   handleClose: PropTypes.func.isRequired,
-//   addPerson: PropTypes.func.isRequired,
-// };
+NewDeviceNote.propTypes = {
+  deviceId: PropTypes.string,
+};
 
-// const mapDispatchToProps = (dispatch) => ({
-//   addPerson: (itemContent) => dispatch(addPersonAction(itemContent)),
-// });
+NewDeviceNote.defaultProps = {
+  deviceId: '',
+};
 
-export default // connect(null, mapDispatchToProps)
-NewPersonBar;
+export default NewDeviceNote;
