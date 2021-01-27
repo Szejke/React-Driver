@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export default function users(state = initialState, action) {
-  console.log(action.type);
   switch (action.type) {
     case type.GET_DEVICES_REQUESTED:
       return {
@@ -27,12 +26,6 @@ export default function users(state = initialState, action) {
         error: action.message,
       };
 
-    case type.FIND_DEVICE:
-      return {
-        devices: [action.payload].concat(state.items),
-        loading: false,
-      };
-
     case type.DELETE_DEVICE_SUCCESS: {
       const { id } = action.id;
       return {
@@ -40,20 +33,21 @@ export default function users(state = initialState, action) {
         loading: false,
       };
     }
+
     case type.CREATE_DEVICE_SUCCESS:
       return {
         devices: [action.payload].concat(state.devices),
         loading: false,
       };
-    case type.UPDATA_DEVICE_SUCCESS: {
-      const { id, ...rest } = action.payload;
 
+    case type.UPDATA_DEVICE_SUCCESS: {
+      const driver = action.payload;
       return {
-        items: state.items.map((post) => {
-          if (post.id === id) {
-            return { ...post, ...rest };
+        devices: state.devices.map((e) => {
+          if (e._id === driver._id) {
+            return { ...e, ...driver };
           }
-          return post;
+          return e;
         }),
         loading: false,
       };
