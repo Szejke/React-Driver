@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeDevicesAction } from 'redux/actions/devices';
+import { removeDeviceAction } from 'redux/actions/devices';
 import styled from 'styled-components/macro';
 import { LightningFill, Lightning, XCircleFill, PencilFill } from 'react-bootstrap-icons';
 import IconButton from 'components/atoms/Buttons/IconButton';
@@ -35,7 +35,6 @@ const StyledEditIcon = styled.div`
 `;
 
 const DeviceNote = ({ id, name, description, disabled, removeDevices, editState }) => {
-  console.log(id);
   return (
     <StyledWrapper>
       <StyledParagraphs>
@@ -60,7 +59,7 @@ const DeviceNote = ({ id, name, description, disabled, removeDevices, editState 
 };
 
 const mapDispathToProps = (dispatch) => ({
-  removeDevices: (id) => dispatch(removeDevicesAction(id)),
+  removeDevices: (id) => dispatch(removeDeviceAction(id)),
 });
 
 DeviceNote.propTypes = {

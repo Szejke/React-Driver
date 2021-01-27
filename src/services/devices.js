@@ -11,6 +11,10 @@ export function getDevice() {
     });
 }
 
-export function deletePostFromApi({ id }) {
+export function deleteDeviceFromApi({ id }) {
   axios.delete(`${url}${id}`);
+}
+
+export function createDeviceFromApi({ payload }) {
+  axios.post(url, payload);
 }
