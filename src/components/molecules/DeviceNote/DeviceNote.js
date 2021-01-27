@@ -34,7 +34,7 @@ const StyledEditIcon = styled.div`
   margin-left: auto;
 `;
 
-const DeviceNote = ({ id, name, description, disabled, removeDevices, editState }) => {
+const DeviceNote = ({ id, name, description, disabled, removeDevice, editState }) => {
   return (
     <StyledWrapper>
       <StyledParagraphs>
@@ -50,7 +50,7 @@ const DeviceNote = ({ id, name, description, disabled, removeDevices, editState 
         <IconButton onClick={() => editState({ id })}>
           <PencilFill size={48} />
         </IconButton>
-        <IconButton onClick={() => removeDevices({ id })}>
+        <IconButton onClick={() => removeDevice({ id })}>
           <XCircleFill size={48} />
         </IconButton>
       </StyledEditIcon>
@@ -59,7 +59,7 @@ const DeviceNote = ({ id, name, description, disabled, removeDevices, editState 
 };
 
 const mapDispathToProps = (dispatch) => ({
-  removeDevices: (id) => dispatch(removeDeviceAction(id)),
+  removeDevice: (id) => dispatch(removeDeviceAction(id)),
 });
 
 DeviceNote.propTypes = {
@@ -67,7 +67,7 @@ DeviceNote.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  removeDevices: PropTypes.func.isRequired,
+  removeDevice: PropTypes.func.isRequired,
   editState: PropTypes.func.isRequired,
 };
 

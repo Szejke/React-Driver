@@ -7,6 +7,7 @@ const initialState = {
 };
 
 export default function users(state = initialState, action) {
+  console.log(action.type);
   switch (action.type) {
     case type.GET_DEVICES_REQUESTED:
       return {
@@ -28,14 +29,14 @@ export default function users(state = initialState, action) {
 
     case type.FIND_DEVICE:
       return {
-        items: [action.payload].concat(state.items),
+        devices: [action.payload].concat(state.items),
         loading: false,
       };
 
     case type.DELETE_DEVICE_SUCCESS: {
-      const deviceId = action.id;
+      const { id } = action.id;
       return {
-        items: state.devices.filter((device) => device._id !== deviceId),
+        devices: state.devices.filter((device) => device._id !== id),
         loading: false,
       };
     }

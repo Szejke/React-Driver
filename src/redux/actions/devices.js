@@ -16,7 +16,7 @@ export function removeDeviceAction(id) {
 export function createDeviceAction(deviceContent) {
   return {
     type: type.CREATE_DEVICE_REQUESTED,
-    ...deviceContent,
+    payload: deviceContent,
   };
 }
 
