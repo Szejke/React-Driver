@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeDevicesAction } from 'redux/actions/devices';
 import styled from 'styled-components/macro';
 import { LightningFill, Lightning, XCircleFill, PencilFill } from 'react-bootstrap-icons';
 import IconButton from 'components/atoms/Buttons/IconButton';
@@ -32,14 +34,15 @@ const StyledEditIcon = styled.div`
   margin-left: auto;
 `;
 
-const DeviceNote = ({ id, name, description, disabled, removePerson, editState }) => {
+const DeviceNote = ({ id, name, description, disabled, removeDevices, editState }) => {
+  console.log(id);
   return (
     <StyledWrapper>
       <StyledParagraphs>
         <StyledH1>{name}</StyledH1>
         <p>{description}</p>
         {disabled ? (
-          <LightningFill fill data-testid="iconTrue" size={48} />
+          <LightningFill data-testid="iconTrue" size={48} />
         ) : (
           <Lightning data-testid="iconFalse" size={48} />
         )}
@@ -48,7 +51,7 @@ const DeviceNote = ({ id, name, description, disabled, removePerson, editState }
         <IconButton onClick={() => editState({ id })}>
           <PencilFill size={48} />
         </IconButton>
-        <IconButton onClick={() => removePerson({ id })}>
+        <IconButton onClick={() => removeDevices({ id })}>
           <XCircleFill size={48} />
         </IconButton>
       </StyledEditIcon>
@@ -56,13 +59,17 @@ const DeviceNote = ({ id, name, description, disabled, removePerson, editState }
   );
 };
 
+const mapDispathToProps = (dispatch) => ({
+  removeDevices: (id) => dispatch(removeDevicesAction(id)),
+});
+
 DeviceNote.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  removePerson: PropTypes.func.isRequired,
+  removeDevices: PropTypes.func.isRequired,
   editState: PropTypes.func.isRequired,
 };
 
-export default DeviceNote;
+export default connect(null, mapDispathToProps)(DeviceNote);
