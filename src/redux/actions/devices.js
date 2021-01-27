@@ -6,10 +6,30 @@ export function getDevicesAction() {
   };
 }
 
-export function removeDevicesAction(id) {
-  console.log('czesc');
+export function removeDeviceAction(id) {
   return {
-    type: type.DELETE_DEVICES_REQUESTED,
+    type: type.DELETE_DEVICE_REQUESTED,
+    id,
+  };
+}
+
+export function createDeviceAction(deviceContent) {
+  return {
+    type: type.CREATE_DEVICE_REQUESTED,
+    ...deviceContent,
+  };
+}
+
+export function updateDeviceAction(deviceContent) {
+  return {
+    type: type.UPDATA_DEVICE_REQUESTED,
+    ...deviceContent,
+  };
+}
+
+export function findDeviceAction(id) {
+  return {
+    type: type.FIND_DEVICE,
     id,
   };
 }
