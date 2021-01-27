@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from 'views/Root/Root';
 import reportWebVitals from 'reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 

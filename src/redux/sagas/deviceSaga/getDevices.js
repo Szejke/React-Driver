@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-const apiUrl = 'http://localhost:8080/device';
+const getUrl = '/device';
 
-function getApi() {
+function getDevice() {
   return axios
-    .get(apiUrl)
+    .get(getUrl)
     .then((response) => response.data)
     .catch((error) => {
       throw error;
@@ -14,7 +14,7 @@ function getApi() {
 
 function* fetchDevices() {
   try {
-    const devices = yield call(getApi);
+    const devices = yield call(getDevice);
     yield put({ type: 'GET_DEVICES_SUCCESS', devices });
   } catch (e) {
     yield put({ type: 'GET_DEVICES_FAILED', message: e.message });
