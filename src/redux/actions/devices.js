@@ -20,10 +20,11 @@ export function createDeviceAction(deviceContent) {
   };
 }
 
-export function updateDeviceAction(deviceContent) {
+export function updateDeviceAction(id, deviceContent) {
   return {
     type: type.UPDATA_DEVICE_REQUESTED,
-    ...deviceContent,
+    id,
+    payload: deviceContent,
   };
 }
 

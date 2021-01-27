@@ -24,7 +24,7 @@ const ListDeviceNotes = ({ devices, getDevices, editState }) => {
       {length === 0 && !loading && <p>No devices available!</p>}
       {error && !loading && <p>{error}</p>}
 
-      {devices.length > 0 &&
+      {length > 0 &&
         devices.map(({ _id, name, description, disabled }) => (
           <DeviceNote
             editState={editState}

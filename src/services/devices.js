@@ -16,9 +16,17 @@ export function deleteDeviceFromApi({ id }) {
 }
 
 export function createDeviceFromApi(payload) {
-  console.log('createDeviceFromApi', payload);
   return axios
     .post(url, payload)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+}
+
+export function updateDeviceFromApi(payload, id) {
+  return axios
+    .put(`${url}${id}`, payload)
     .then((response) => response.data)
     .catch((error) => {
       throw error;

@@ -40,10 +40,15 @@ const Home = () => {
   const handleNewDeviceBarToggle = () => {
     setDeviceBarVisible(!deviceBarVisible);
     setStateEdit('');
+    return deviceBarVisible;
   };
 
   const handleEditDeviceBarToggle = (deviceId) => {
-    setDeviceBarVisible(!deviceBarVisible);
+    if (deviceId.id !== stateEdit.id) {
+      setDeviceBarVisible(true);
+    } else {
+      setDeviceBarVisible(!deviceBarVisible);
+    }
     setStateEdit(deviceId);
   };
 
@@ -54,7 +59,7 @@ const Home = () => {
         <Fab onClick={handleNewDeviceBarToggle}>{deviceBarVisible ? '-' : '+'}</Fab>
       </StyledButton>
       <StyledNewDeviceNote isVisible={deviceBarVisible}>
-        <BarDeviceNote handleClose={handleNewDeviceBarToggle} deviceId={stateEdit} />
+        <BarDeviceNote toogle={handleNewDeviceBarToggle} deviceId={stateEdit.id} />
       </StyledNewDeviceNote>
     </StyledWrapper>
   );

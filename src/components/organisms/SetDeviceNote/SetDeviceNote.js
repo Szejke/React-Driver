@@ -1,13 +1,6 @@
-const createText = {
-  title: 'Create New Device',
-};
-
-export const editStae = ({ deviceId }) => {
-  if (deviceId && deviceId.id.length) {
-    const etitText = {
-      title: `Edit Device ${deviceId.id}`,
-    };
-    return etitText;
+export const editStatus = (deviceId) => {
+  if (deviceId) {
+    return true;
   }
-  return createText;
+  return false;
 };
