@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 import DeviceNote from 'components/molecules/DeviceNote/DeviceNote';
 import { getDevicesAction } from 'redux/actions/devices';
+import { getDevice } from 'redux/selector/device';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -12,8 +13,8 @@ const StyledWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ListDeviceNotes = ({ devices, getDevices, editState }) => {
-  const { loading, error, length } = devices;
+const ListDeviceNotes = ({ devices, getDevices, editState, loading, error }) => {
+  const { length } = devices;
   useEffect(() => {
     getDevices();
   }, []);
@@ -40,8 +41,8 @@ const ListDeviceNotes = ({ devices, getDevices, editState }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { devices } = state.devices;
-  return { devices };
+  const { devices, loading, error } = getDevice(state);
+  return { devices, loading, error };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -57,12 +58,17 @@ ListDeviceNotes.propTypes = {
       disabled: PropTypes.bool.isRequired,
     }),
   ),
+
+  loading: PropTypes.bool,
+  error: PropTypes.string,
   getDevices: PropTypes.func.isRequired,
   editState: PropTypes.func.isRequired,
 };
 
 ListDeviceNotes.defaultProps = {
   devices: [],
+  loading: false,
+  error: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListDeviceNotes);

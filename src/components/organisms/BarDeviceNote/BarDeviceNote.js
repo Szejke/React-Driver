@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createDeviceAction, updateDeviceAction } from 'redux/actions/devices';
 import Button from 'components/atoms/Buttons/Button';
-
 import styled from 'styled-components/macro';
+import { getDevice } from 'redux/selector/device';
+import { barText, editeState } from './HelperDeviceNote';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -25,8 +26,19 @@ const StyledCheck = styled(Form.Check)`
   }
 `;
 
-const BarDeviceNote = ({ toogle, deviceId, createDevice, updateDevice, devices }) => {
+const BarDeviceNote = ({
+  toogle,
+  deviceId,
+  createDevice,
+  updateDevice,
+  devices,
+  loading,
+  error,
+}) => {
   const [editDevice, setEditDevice] = useState([]);
+  const { length } = devices;
+
+  const text = barText(editeState(deviceId));
 
   useEffect(() => {
     if (deviceId) {
@@ -36,7 +48,7 @@ const BarDeviceNote = ({ toogle, deviceId, createDevice, updateDevice, devices }
     }
   }, [deviceId]);
 
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, errors } = useForm();
   const onSubmit = (values, e) => {
     const form = {
       ...values,
@@ -51,20 +63,31 @@ const BarDeviceNote = ({ toogle, deviceId, createDevice, updateDevice, devices }
   };
   return (
     <StyledWrapper>
-      <Styledh1> hello </Styledh1>
+      <Styledh1> {text.title} </Styledh1>
+
+      {loading && <p>Loading...</p>}
+      {length === 0 && !loading && <p>No devices available!</p>}
+      {error && !loading && <p>{error}</p>}
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Device Name</Form.Label>
           <Form.Control
             name="name"
-            ref={register()}
+            ref={register({ required: true, maxLength: 30 })}
             size="lg"
             type="text"
             defaultValue={editDevice.name}
             placeholder="Enter Device Name"
           />
+          {errors.name && errors.name.type === 'required' && (
+            <span role="alert">This is required</span>
+          )}
+          {errors.name && errors.name.type === 'maxLength' && (
+            <span role="alert">Max length exceeded</span>
+          )}
+          <Form.Text className="text-muted">Max 30 Characters</Form.Text>
         </Form.Group>
-
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Description</Form.Label>
           <Form.Control
@@ -81,14 +104,14 @@ const BarDeviceNote = ({ toogle, deviceId, createDevice, updateDevice, devices }
         <Form.Group controlId="formBasicCheckbox">
           <StyledCheck
             name="disabled"
-            ref={register()}
+            ref={register({ required: true })}
             type="checkbox"
             label="Turn or Disable Device"
             defaultChecked={editDevice.disabled}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Add Device
+          {text.buttonName}
         </Button>
       </Form>
     </StyledWrapper>
@@ -99,10 +122,9 @@ const mapDispathToProps = (dispatch) => ({
   createDevice: (contentDevice) => dispatch(createDeviceAction(contentDevice)),
   updateDevice: (id, contentDevice) => dispatch(updateDeviceAction(id, contentDevice)),
 });
-
 const mapStateToProps = (state) => {
-  const { devices } = state.devices;
-  return { devices };
+  const { devices, loading, error } = getDevice(state);
+  return { devices, loading, error };
 };
 
 BarDeviceNote.propTypes = {
@@ -119,6 +141,8 @@ BarDeviceNote.propTypes = {
       disabled: PropTypes.bool.isRequired,
     }),
   ),
+  loading: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 BarDeviceNote.defaultProps = {
@@ -127,6 +151,8 @@ BarDeviceNote.defaultProps = {
   updateDevice: {},
   toogle: {},
   devices: [],
+  loading: false,
+  error: '',
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(BarDeviceNote);
