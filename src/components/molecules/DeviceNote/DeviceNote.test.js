@@ -12,7 +12,6 @@ describe(' Tests for Device Note', () => {
     const id = '123';
 
     const handleEditDeviceBarToggle = () => {};
-
     const { getByTestId, getByText } = render(
       <Provider store={store}>
         <DeviceNote

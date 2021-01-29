@@ -1,0 +1,18 @@
+{
+    "Welcome to React": "Welcome to React and react-i18next",
+    "Loading": "Loading...",
+    "deviceName": "Device Name",
+    "enterDeviceName": "Enter Device Name",
+    "isRequired": "This is required",
+    "maxLengthExceeded": "Max length exceeded",
+    "max30Characters": "Max 30 Characters",
+    "description": "Description",
+    "turnDisableDevice": "Turn or Disable Device",
+    "createNewDevice": "Create New Device",
+    "addDevice": "Add Device",
+    "editDevice": "Edit Device",
+    "edit": "Edit",
+    "noDevicesAvailable": "No devices available!",
+    "styleChange": "Style change",
+    "Submit": "Submit"
+  }

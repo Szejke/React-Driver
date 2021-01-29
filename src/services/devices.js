@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8080/device/';
+const url = 'https://deviceproject.herokuapp.com/device/';
 
 export function getDevice() {
   return axios
