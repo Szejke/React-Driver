@@ -6,6 +6,7 @@ import BarDeviceNote from 'components/organisms/BarDeviceNote/BarDeviceNote';
 
 const StyledWrapper = styled.div`
   margin-top: 20px;
+  background-color: ${({ theme }) => theme.backgroundBar};
 `;
 
 const StyledButton = styled.div`
@@ -14,7 +15,7 @@ const StyledButton = styled.div`
   bottom: 0;
   margin-bottom: 20px;
   margin-right: 20px;
-  z-index: 800;
+  z-index: 900;
 `;
 
 const StyledNewDeviceNote = styled.div`
@@ -27,7 +28,6 @@ const StyledNewDeviceNote = styled.div`
   top: 0;
   height: 100vh;
   width: 40%;
-  background-color: white;
   box-shadow: 0 8px 100px rgba(36, 36, 36, 0.11);
   transform: translate(${({ isVisible }) => (isVisible ? '0' : '100%')});
   transition: transform 0.5s ease-in-out;
@@ -56,7 +56,7 @@ const Home = () => {
     <StyledWrapper>
       <ListDeviceNotes editState={handleEditDeviceBarToggle} />
       <StyledButton>
-        <Fab onClick={handleNewDeviceBarToggle}>{deviceBarVisible ? '-' : '+'}</Fab>
+        <Fab onClick={handleNewDeviceBarToggle}>{deviceBarVisible ? '-' : '+'} </Fab>
       </StyledButton>
       <StyledNewDeviceNote isVisible={deviceBarVisible}>
         <BarDeviceNote toogle={handleNewDeviceBarToggle} deviceId={stateEdit.id} />

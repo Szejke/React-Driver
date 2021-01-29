@@ -7,16 +7,17 @@ import { createDeviceAction, updateDeviceAction } from 'redux/actions/devices';
 import Button from 'components/atoms/Buttons/Button';
 import styled from 'styled-components/macro';
 import { getDevice } from 'redux/selector/device';
-import { barText, editeState } from './HelperDeviceNote';
+import { H1, P } from 'components/atoms/Paragraphs/Paragraphs';
+import { useTranslation } from 'react-i18next';
 
 const StyledWrapper = styled.div`
   display: flex;
-  background: white;
+  background-color: ${({ theme }) => theme.backgroundBar};
   padding: 2%;
   flex-direction: column;
 `;
 
-const Styledh1 = styled.h1`
+const Styledh1 = styled(H1)`
   color: ${({ theme }) => theme.colorPrimary};
 `;
 
@@ -24,6 +25,11 @@ const StyledCheck = styled(Form.Check)`
   label {
     padding-left: 1rem;
   }
+`;
+
+const StyledSpan = styled.span`
+  color: red;
+  font-weight: blod;
 `;
 
 const BarDeviceNote = ({
@@ -35,20 +41,25 @@ const BarDeviceNote = ({
   loading,
   error,
 }) => {
-  const [editDevice, setEditDevice] = useState([]);
+  const { t } = useTranslation();
+  const [editDevice, setEditDevice] = useState('');
   const { length } = devices;
-
-  const text = barText(editeState(deviceId));
+  const { handleSubmit, register, errors } = useForm();
 
   useEffect(() => {
     if (deviceId) {
       setEditDevice(devices.find((e) => e._id === deviceId));
     } else {
-      setEditDevice([]);
+      setEditDevice('');
     }
   }, [deviceId]);
 
-  const { handleSubmit, register, errors } = useForm();
+  useEffect(() => {
+    if (!deviceId) {
+      setEditDevice('');
+    }
+  }, [deviceId]);
+
   const onSubmit = (values, e) => {
     const form = {
       ...values,
@@ -63,33 +74,33 @@ const BarDeviceNote = ({
   };
   return (
     <StyledWrapper>
-      <Styledh1> {text.title} </Styledh1>
+      <Styledh1> {deviceId ? t('editDevice') : t('createNewDevice')}</Styledh1>
 
-      {loading && <p>Loading...</p>}
-      {length === 0 && !loading && <p>No devices available!</p>}
-      {error && !loading && <p>{error}</p>}
+      {loading && <P>{t('Loading')}</P>}
+      {length === 0 && !loading && <P>{t('noDevicesAvailable')}</P>}
+      {error && !loading && <P>{error}</P>}
 
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Device Name</Form.Label>
+        <Form.Group controlId="name">
+          <Form.Label>{t('deviceName')}</Form.Label>
           <Form.Control
             name="name"
             ref={register({ required: true, maxLength: 30 })}
             size="lg"
             type="text"
-            defaultValue={editDevice.name}
-            placeholder="Enter Device Name"
+            defaultValue={editDevice.name || ''}
+            placeholder={t('enterDeviceName')}
           />
           {errors.name && errors.name.type === 'required' && (
-            <span role="alert">This is required</span>
+            <StyledSpan role="alert">{t('isRequired')}</StyledSpan>
           )}
           {errors.name && errors.name.type === 'maxLength' && (
-            <span role="alert">Max length exceeded</span>
+            <StyledSpan role="alert">{t('maxLengthExceeded')}</StyledSpan>
           )}
-          <Form.Text className="text-muted">Max 30 Characters</Form.Text>
+          <Form.Text className="text-muted">{t('max30Characters')}</Form.Text>
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Description</Form.Label>
+        <Form.Group controlId="description">
+          <Form.Label>{t('description')}</Form.Label>
           <Form.Control
             name="description"
             ref={register()}
@@ -97,21 +108,22 @@ const BarDeviceNote = ({
             size="lg"
             rows={3}
             type="text"
-            defaultValue={editDevice.description}
-            placeholder="Description"
+            defaultValue={editDevice.description || ''}
+            placeholder={t('description')}
           />
         </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
+        <Form.Group controlId="disabled">
           <StyledCheck
             name="disabled"
-            ref={register({ required: true })}
+            className="form-control"
+            ref={register()}
             type="checkbox"
-            label="Turn or Disable Device"
-            defaultChecked={editDevice.disabled}
+            label={t('turnDisableDevice')}
+            defaultChecked={editDevice.disabled || false}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          {text.buttonName}
+          {t('Submit')}
         </Button>
       </Form>
     </StyledWrapper>

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeDeviceAction } from 'redux/actions/devices';
 import styled from 'styled-components/macro';
-import { LightningFill, Lightning, XCircleFill, PencilFill } from 'react-bootstrap-icons';
+import { Lightbulb, LightbulbOff, XCircleFill, PencilFill } from 'react-bootstrap-icons';
 import IconButton from 'components/atoms/Buttons/IconButton';
+import { H1, P } from 'components/atoms/Paragraphs/Paragraphs';
 
 const StyledWrapper = styled.div`
   display: flex;
+  background-color: ${({ theme }) => theme.note};
   box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
   overflow: hidden;
   border-radius: 10px;
@@ -23,7 +25,7 @@ const StyledParagraphs = styled.div`
   margin-left: 30px;
 `;
 
-const StyledH1 = styled.h1`
+const StyledH1 = styled(H1)`
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.colorPrimary};
 `;
@@ -39,11 +41,11 @@ const DeviceNote = ({ id, name, description, disabled, removeDevice, editState }
     <StyledWrapper>
       <StyledParagraphs>
         <StyledH1>{name}</StyledH1>
-        <p>{description}</p>
+        <P>{description}</P>
         {disabled ? (
-          <LightningFill data-testid="iconTrue" size={48} />
+          <Lightbulb data-testid="iconTrue" size={48} />
         ) : (
-          <Lightning data-testid="iconFalse" size={48} />
+          <LightbulbOff data-testid="iconFalse" size={48} />
         )}
       </StyledParagraphs>
       <StyledEditIcon>

@@ -5,15 +5,16 @@ import PropTypes from 'prop-types';
 import DeviceNote from 'components/molecules/DeviceNote/DeviceNote';
 import { getDevicesAction } from 'redux/actions/devices';
 import { getDevice } from 'redux/selector/device';
+import { useTranslation } from 'react-i18next';
 
 const StyledWrapper = styled.div`
   display: flex;
-  background: white;
   padding: 2%;
   flex-direction: column;
 `;
 
 const ListDeviceNotes = ({ devices, getDevices, editState, loading, error }) => {
+  const { t } = useTranslation();
   const { length } = devices;
   useEffect(() => {
     getDevices();
@@ -21,8 +22,8 @@ const ListDeviceNotes = ({ devices, getDevices, editState, loading, error }) => 
 
   return (
     <StyledWrapper>
-      {loading && <p>Loading...</p>}
-      {length === 0 && !loading && <p>No devices available!</p>}
+      {loading && <p data-testid="loading">{t('Loading')}</p>}
+      {length === 0 && !loading && <p>{t('noDevicesAvailable')}</p>}
       {error && !loading && <p>{error}</p>}
 
       {length > 0 &&

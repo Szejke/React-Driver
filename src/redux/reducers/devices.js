@@ -6,7 +6,7 @@ const initialState = {
   error: null,
 };
 
-export default function users(state = initialState, action) {
+export default function reducersDevice(state = initialState, action) {
   switch (action.type) {
     case type.GET_DEVICES_REQUESTED:
       return {
@@ -33,7 +33,6 @@ export default function users(state = initialState, action) {
         loading: false,
       };
     }
-
     case type.CREATE_DEVICE_SUCCESS:
       return {
         devices: [action.payload].concat(state.devices),

@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`${css`
 
   body {
     height: 100%;
+    background-color: ${({ theme }) => theme.backgroundBar};
     font-size: 1.6rem; // 16px
     font-family: 'Montserrat', sans-serif;
   }

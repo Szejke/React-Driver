@@ -6,6 +6,7 @@
   "globals": {
     "windows": true,
     "document": true,
+    "t": true,
     "reportWebVitals.js": true
   },
   "ignorePatterns": ["reportWebVitals.js", "index.js", "jsconfig.json"],
