@@ -10,8 +10,10 @@ import store from 'redux/store';
 addDecorator((storyFn) => {
   return (
     <Provider store={store}>
-      <GlobalStyle />
-      <ThemeProvider theme={lightTheme}>{storyFn()}</ThemeProvider>
+      <ThemeProvider theme={lightTheme}>
+        <GlobalStyle />
+        {storyFn()}
+      </ThemeProvider>
     </Provider>
   );
 });
