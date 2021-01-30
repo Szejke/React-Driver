@@ -54,16 +54,11 @@ const BarDeviceNote = ({
     }
   }, [deviceId]);
 
-  useEffect(() => {
-    if (!deviceId) {
-      setEditDevice('');
-    }
-  }, [deviceId]);
-
   const onSubmit = (values, e) => {
     const form = {
       ...values,
     };
+    form.disabled = !!form.disabled[0];
     if (deviceId) {
       updateDevice(deviceId, form);
     } else {
@@ -80,7 +75,7 @@ const BarDeviceNote = ({
       {length === 0 && !loading && <P>{t('noDevicesAvailable')}</P>}
       {error && !loading && <P>{error}</P>}
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)} key={editDevice._id || 'createDevice'}>
         <Form.Group controlId="name">
           <Form.Label>{t('deviceName')}</Form.Label>
           <Form.Control
@@ -115,7 +110,6 @@ const BarDeviceNote = ({
         <Form.Group controlId="disabled">
           <StyledCheck
             name="disabled"
-            className="form-control"
             ref={register()}
             type="checkbox"
             label={t('turnDisableDevice')}
